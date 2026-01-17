@@ -1,30 +1,105 @@
 import { getParkData } from "./parkService.mjs";
 
-const parkData = getParkData();
+const parkData = getParkData(); // get all park info from the dataset
 
-/* Update the link in the disclaimer area to read the name of the park and navigate to that park’s official site. */
+function setHeaderInfo(data) {
+  const disclaimerLink = document.querySelector(".disclaimer > a"); // disclaimer link
+  disclaimerLink.href = data.url; // real park website
+  disclaimerLink.innerHTML = data.fullName; // full park name text
 
-const disclaimer= document.querySelector(".disclaimer > a");
-disclaimer.href = parkData.url;
-disclaimer.innerHTML = parkData.fullName;
+  document.querySelector("head > title").textContent = data.fullName; // browser tab title
 
-/* Update the title of the page to read the name of the park. */
+  const heroImg = document.querySelector(".hero-banner > img"); // hero image
+  heroImg.src = data.images[0].url;
+  heroImg.alt = data.images[0].altText || data.fullName;
 
-document.title = parkData.fullName;
+  const heroTitle = document.querySelector(".hero-banner__title"); // hero title
+  heroTitle.textContent = data.name;
 
-/* Use the first image in the list in the data for the hero image. */
+  const heroSubtitleSpans = document.querySelectorAll(".hero-banner__subtitle span"); // hero subtitle
+  heroSubtitleSpans[0].textContent = data.designation; // National Park
+  heroSubtitleSpans[1].textContent = data.states; // ID, MT, WY
+}
 
-const heroImage = document.querySelector(".hero-banner img");
-heroImage.src = parkData.images[0].url;
-heroImage.alt = parkData.images[0].altText
+function setParkIntro(data) {
+  const introEl = document.querySelector(".intro"); // intro section
+  introEl.innerHTML = `
+    <h1>${data.fullName}</h1>
+    <p>${data.description}</p>
+  `; // title + description
+}
 
-/* Update the name, designation, and states of the park in the hero.*/
+function mediaCardTemplate(info) {
+  return `
+    <div class="media-card">
+      <a href="${info.link}">
+        <img src="${info.image}" alt="${info.name}" class="media-card__img">
+        <h3 class="media-card__title">${info.name}</h3>
+      </a>
+      <p>${info.description}</p>
+    </div>
+  `; // one card HTML
+}
 
-const heroTitle = document.querySelector(".hero-banner__title");
-heroTitle.textContent = parkData.name;
+const parkInfoLinks = [
+  // the 3 cards we need on the page
+  {
+    name: "Current Conditions &#x203A;",
+    link: "conditions.html",
+    image: parkData.images[2].url,
+    description: "See what conditions to expect in the park before leaving on your trip!"
+  },
+  {
+    name: "Fees and Passes &#x203A;",
+    link: "fees.html",
+    image: parkData.images[3].url,
+    description: "Learn about the fees and passes that are available."
+  },
+  {
+    name: "Visitor Centers &#x203A;",
+    link: "visitor_centers.html",
+    image: parkData.images[9].url,
+    description: "Learn about the visitor centers in the park."
+  }
+];
 
-const heroSubtitleSpans = document.querySelectorAll(
-    ".hero-banner__subtitle span"
-);
-heroSubtitleSpans[0].textContent = parkData.designation;
-heroSubtitleSpans[1].textContent = parkData.states;
+function setParkInfoLinks(data) {
+  const infoEl = document.querySelector(".info"); // info section
+  infoEl.innerHTML = data.map(mediaCardTemplate).join(""); // build + insert 3 cards
+}
+
+function getMailingAddress(addresses) {
+  return addresses.find((address) => address.type === "Mailing"); // pick Mailing address
+}
+
+function getVoicePhone(numbers) {
+  const voice = numbers.find((number) => number.type === "Voice"); // pick Voice phone
+  return voice ? voice.phoneNumber : "";
+}
+
+function footerTemplate(info) {
+  const mailing = getMailingAddress(info.addresses); // filtered address
+  const voice = getVoicePhone(info.contacts.phoneNumbers); // filtered phone
+
+  return `
+    <section class="contact">
+      <h3>Contact Info</h3>
+      <h4>Mailing Address:</h4>
+      <div>
+        <p>${mailing.line1}</p>
+        <p>${mailing.city}, ${mailing.stateCode} ${mailing.postalCode}</p>
+      </div>
+      <h4>Phone:</h4>
+      <p>${voice}</p>
+    </section>
+  `; // footer HTML
+}
+
+function setFooter(data) {
+  document.querySelector("#park-footer").innerHTML = footerTemplate(data); // insert footer
+}
+
+setHeaderInfo(parkData); // fill header
+setParkIntro(parkData); // fill intro
+setParkInfoLinks(parkInfoLinks); // fill 3 cards
+setFooter(parkData); // fill footer

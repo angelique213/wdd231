@@ -1,0 +1,27 @@
+/* ---------- Global ---------- */
+* {
+    box-sizing: border-box;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.75;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  a:link,
+  a:visited {
+    color: #005999;
+  }
+  
+  a:hover {
+    color: #003e6b;
+  }
+  

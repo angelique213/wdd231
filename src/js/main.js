@@ -1,32 +1,71 @@
 import { getParkData } from "./parkService.mjs";
 
-const parkData = getParkData(); // get all park info from the dataset
+/* -------------------- START APP -------------------- */
+async function init() {
+  const parkData = await getParkData(); // fetch park data from NPS API
 
+  setHeaderInfo(parkData); // disclaimer link + page title + hero image/title/subtitle
+  setParkIntro(parkData); // main h1 + description paragraph
+
+  const parkInfoLinks = getInfoLinks(parkData.images); // build 3 card objects using API images
+  setParkInfoLinks(parkInfoLinks); // render the 3 cards into the page
+
+  setFooter(parkData); // render mailing address + phone into footer
+}
+
+init();
+
+/* -------------------- HEADER -------------------- */
 function setHeaderInfo(data) {
-  const disclaimerLink = document.querySelector(".disclaimer > a"); // disclaimer link
-  disclaimerLink.href = data.url; // real park website
-  disclaimerLink.innerHTML = data.fullName; // full park name text
+  const disclaimerLink = document.querySelector(".disclaimer > a"); // top disclaimer link
+  disclaimerLink.href = data.url; // real NPS site link
+  disclaimerLink.textContent = data.fullName; // full park name text
 
   document.querySelector("head > title").textContent = data.fullName; // browser tab title
 
-  const heroImg = document.querySelector(".hero-banner > img"); // hero image
-  heroImg.src = data.images[0].url;
-  heroImg.alt = data.images[0].altText || data.fullName;
+  const heroImg = document.querySelector(".hero-banner > img"); // hero banner image
+  heroImg.src = data.images?.[0]?.url || heroImg.src; // hero image URL (fallback to existing)
+  heroImg.alt = data.images?.[0]?.altText || data.fullName; // hero alt text
 
-  const heroTitle = document.querySelector(".hero-banner__title"); // hero title
+  const heroTitle = document.querySelector(".hero-banner__title"); // hero title (park short name)
   heroTitle.textContent = data.name;
 
-  const heroSubtitleSpans = document.querySelectorAll(".hero-banner__subtitle span"); // hero subtitle
-  heroSubtitleSpans[0].textContent = data.designation; // National Park
-  heroSubtitleSpans[1].textContent = data.states; // ID, MT, WY
+  const heroSubtitleSpans = document.querySelectorAll(".hero-banner__subtitle span"); // subtitle lines
+  heroSubtitleSpans[0].textContent = data.designation; // ex: National Park
+  heroSubtitleSpans[1].textContent = data.states; // ex: MT
 }
 
+/* -------------------- INTRO -------------------- */
 function setParkIntro(data) {
-  const introEl = document.querySelector(".intro"); // intro section
+  const introEl = document.querySelector(".intro"); // intro section container
   introEl.innerHTML = `
     <h1>${data.fullName}</h1>
     <p>${data.description}</p>
-  `; // title + description
+  `;
+}
+
+/* -------------------- INFO CARDS -------------------- */
+function getInfoLinks(images) {
+  return [
+    {
+      name: "Current Conditions &#x203A;",
+      link: "conditions.html",
+      image: images?.[2]?.url || images?.[0]?.url,
+      description: "See what conditions to expect in the park before leaving on your trip!",
+    },
+    {
+      name: "Fees and Passes &#x203A;",
+      link: "fees.html",
+      image: images?.[3]?.url || images?.[1]?.url,
+      description: "Learn about the fees and passes that are available.",
+    },
+    {
+      name: "Visitor Centers &#x203A;",
+      link: "visitor_centers.html",
+      image: images?.[4]?.url || images?.[2]?.url,
+      description: "Learn about the visitor centers in the park.",
+    },
+  ];
 }
 
 function mediaCardTemplate(info) {
@@ -38,48 +77,27 @@ function mediaCardTemplate(info) {
       </a>
       <p>${info.description}</p>
     </div>
-  `; // one card HTML
+  `;
 }
 
-const parkInfoLinks = [
-  // the 3 cards we need on the page
-  {
-    name: "Current Conditions &#x203A;",
-    link: "conditions.html",
-    image: parkData.images[2].url,
-    description: "See what conditions to expect in the park before leaving on your trip!"
-  },
-  {
-    name: "Fees and Passes &#x203A;",
-    link: "fees.html",
-    image: parkData.images[3].url,
-    description: "Learn about the fees and passes that are available."
-  },
-  {
-    name: "Visitor Centers &#x203A;",
-    link: "visitor_centers.html",
-    image: parkData.images[9].url,
-    description: "Learn about the visitor centers in the park."
-  }
-];
-
-function setParkInfoLinks(data) {
-  const infoEl = document.querySelector(".info"); // info section
-  infoEl.innerHTML = data.map(mediaCardTemplate).join(""); // build + insert 3 cards
+function setParkInfoLinks(cards) {
+  const infoEl = document.querySelector(".info"); // cards container
+  infoEl.innerHTML = cards.map(mediaCardTemplate).join(""); // render 3 cards
 }
 
+/* -------------------- FOOTER -------------------- */
 function getMailingAddress(addresses) {
-  return addresses.find((address) => address.type === "Mailing"); // pick Mailing address
+  return addresses.find((address) => address.type === "Mailing"); // pick mailing address
 }
 
 function getVoicePhone(numbers) {
-  const voice = numbers.find((number) => number.type === "Voice"); // pick Voice phone
+  const voice = numbers.find((number) => number.type === "Voice"); // pick voice phone
   return voice ? voice.phoneNumber : "";
 }
 
 function footerTemplate(info) {
-  const mailing = getMailingAddress(info.addresses); // filtered address
-  const voice = getVoicePhone(info.contacts.phoneNumbers); // filtered phone
+  const mailing = getMailingAddress(info.addresses); // mailing address object
+  const voice = getVoicePhone(info.contacts.phoneNumbers); // phone number string
 
   return `
     <section class="contact">
@@ -92,14 +110,10 @@ function footerTemplate(info) {
       <h4>Phone:</h4>
       <p>${voice}</p>
     </section>
-  `; // footer HTML
+  `;
 }
 
 function setFooter(data) {
-  document.querySelector("#park-footer").innerHTML = footerTemplate(data); // insert footer
+  const footerEl = document.querySelector("#park-footer"); // footer container
+  footerEl.innerHTML = footerTemplate(data); // render footer HTML
 }
-
-setHeaderInfo(parkData); // fill header
-setParkIntro(parkData); // fill intro
-setParkInfoLinks(parkInfoLinks); // fill 3 cards
-setFooter(parkData); // fill footer

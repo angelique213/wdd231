@@ -1,27 +1,26 @@
-/* ---------- Footer ---------- */
+/* footer*/
+
 #park-footer {
-    background-image: url("../images/topo_pattern.png");
-    background-repeat: repeat;
-    padding: 1.5rem;
-  }
-  
-  #park-footer h3 {
-    font-family: "Times New Roman", Times, serif;
-    text-transform: uppercase;
-    font-size: 0.8em;
-    margin: 0.5rem 0 0.25rem 0;
-  }
-  
-  #park-footer h4 {
-    margin-top: 0.8rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.8em;
-  }
-  
-  #park-footer p {
-    font-size: 0.8em;
-    line-height: 1.2;
-    color: #444;
-    margin: 0.5rem 0;
-  }
-  
+  background-image: url("../../images/topo_pattern.png");
+  padding: 1.5rem;
+}
+
+#park-footer h3 {
+  font-family: var(--bs-font-serif);
+  text-transform: uppercase;
+  font-size: 0.8em;
+  margin-top: 0.5rem;
+}
+
+#park-footer h4 {
+  margin-top: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8em;
+}
+
+#park-footer p {
+  font-size: 0.8em;
+  line-height: 1;
+  color: var(--bs-grey-2);
+  margin: 0.5rem 0;
+}

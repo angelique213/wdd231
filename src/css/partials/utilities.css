@@ -1,39 +1,31 @@
+/* Utility */
 
-/* ---------- Skip links ---------- */
-.skip-links ul {
-    list-style-type: none;
-    margin: 0;
-    padding-left: 0;
-  }
-  
-  .skip-links a {
-    font-size: 11px;
-    position: absolute;
-    right: 20px;
-    top: -200px;
-    z-index: -1;
-  }
-  
-  .skip-links a:focus {
-    top: 2px;
-    z-index: 9999;
-  }
-
-  /* ---------- Utility ---------- */
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-  }
-  
-  .disclaimer {
-    padding: 0 1em;
-  }
-  
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.disclaimer {
+  padding: 0 1em;
+}
+
+.alert-information {
+  color: var(--alert-information);
+}
+.alert-danger {
+  color: var(--alert-danger);
+}
+.alert-closure {
+  color: var(--alert-closure);
+}
+.alert-caution {
+  color: var(--alert-caution);
+}

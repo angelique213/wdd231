@@ -1,4 +1,4 @@
-<!-- index.html -->
+<!-- conditions.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>[Park Name]</title>
 
-
     <!-- <link rel="stylesheet" href="css/style.css" /> -->
-
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/conditions.js"></script>
   </head>
 
   <body>
@@ -55,14 +53,14 @@
 
         <div class="global-header__right">
           <a class="search-icon" href="#park-footer">
-            <svg class="icon">
+            <svg class="icon" focusable="false" aria-hidden="true">
               <use xlink:href="/images/sprite.symbol.svg#search"></use>
             </svg>
             <span class="visually-hidden">Search</span>
           </a>
 
           <button id="global-nav-toggle" type="button">
-            <svg class="icon">
+            <svg class="icon" focusable="false" aria-hidden="true">
               <use xlink:href="/images/sprite.symbol.svg#menu"></use>
             </svg>
             <span class="visually-hidden">Open</span> Menu
@@ -137,9 +135,29 @@
       </section>
     </header>
 
-    <main id="main">
-      <section class="intro"></section>
-      <section class="info"></section>
+    <main id="main" class="conditions-main">
+      <h1>Current Conditions</h1>
+
+      <section class="alerts">
+        <h2>Alerts</h2>
+        <ul id="alerts-list" class="alerts-list"></ul>
+      </section>
+
+      <section class="visitor">
+        <h2>Visitor Services</h2>
+        <details name="current-details">
+          <summary>Visitor Centers</summary>
+          <div id="visitor-centers" class="visitor-centers"></div>
+        </details>
+      </section>
+
+      <section class="activities">
+        <h2>Activities</h2>
+        <details name="current-details">
+          <summary>All Activities</summary>
+          <ul id="activities-list" class="activities-list"></ul>
+        </details>
+      </section>
     </main>
 
     <footer id="park-footer"></footer>

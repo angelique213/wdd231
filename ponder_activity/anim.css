@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  /* ORIGINAL */
+  .content {
+    width: 80%;
+    height: 500px;
+    border: 1px solid;
+  }
+  
+  /* ORIGINAL */
+  .red {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+  
+    /* makes hover smooth */
+    transition: all 1s;
+  }
+  
+  /*  hover effect */
+  .red:hover {
+    border-radius: 50%;
+    background-color: bisque;
+  }
+  
+  /* ORIGINAL */
+  .yellow {
+    width: 100px;
+    height: 100px;
+    background-color: gold;
+    border-radius: 0 0 50% 50%;
+  
+    /*  animation */
+    animation: rock 2s infinite;
+  }
+  
+  /*  keyframes for rocking animation */
+  @keyframes rock {
+    25% {
+      transform: rotate(90deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(-90deg);
+    }
+  }
+  
+  /* ORIGINAL */
+  .green {
+    width: 100px;
+    height: 40px;
+    background-color: green;
+    border: 0;
+  }
+  
+  /* ORIGINAL base styles */
+  .blue {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+  
+    /*  hide blue initially */
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  
+    /*  smooth animation */
+    transition: all 0.5s;
+  }
+  
+  /*  used by JavaScript toggle */
+  .blue.show {
+    height: 100px;
+    opacity: 1;
+  }

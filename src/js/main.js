@@ -4,21 +4,23 @@ import "../css/home.css";
 import { getParkData } from "./parkService.mjs";
 
 /* -------------------- START APP -------------------- */
+/* Loads park data and updates the page */
 async function init() {
   const parkData = await getParkData(); // fetch park data from NPS API
 
-  setHeaderInfo(parkData); // disclaimer link + page title + hero image/title/subtitle
-  setParkIntro(parkData); // main h1 + description paragraph
+  setHeaderInfo(parkData); // update disclaimer link + title + hero banner
+  setParkIntro(parkData); // update main heading + intro description
 
-  const parkInfoLinks = getInfoLinks(parkData.images); // build 3 card objects using API images
-  setParkInfoLinks(parkInfoLinks); // render the 3 cards into the page
+  const parkInfoLinks = getInfoLinks(parkData.images); // build 3 info cards
+  setParkInfoLinks(parkInfoLinks); // render the cards into the page
 
-  setFooter(parkData); // render mailing address + phone into footer
+  setFooter(parkData); // update footer contact info
 }
 
 init();
 
 /* -------------------- HEADER -------------------- */
+/* Updates top disclaimer link, page title, and hero banner */
 function setHeaderInfo(data) {
   const disclaimerLink = document.querySelector(".disclaimer > a"); // top disclaimer link
   disclaimerLink.href = data.url; // real NPS site link
@@ -39,6 +41,7 @@ function setHeaderInfo(data) {
 }
 
 /* -------------------- INTRO -------------------- */
+/* Updates the park intro section */
 function setParkIntro(data) {
   const introEl = document.querySelector(".intro"); // intro section container
   introEl.innerHTML = `
@@ -48,6 +51,7 @@ function setParkIntro(data) {
 }
 
 /* -------------------- INFO CARDS -------------------- */
+/* Creates the three "info" cards data */
 function getInfoLinks(images) {
   return [
     {
@@ -71,6 +75,7 @@ function getInfoLinks(images) {
   ];
 }
 
+/* HTML template for one card */
 function mediaCardTemplate(info) {
   return `
     <div class="media-card">
@@ -83,24 +88,28 @@ function mediaCardTemplate(info) {
   `;
 }
 
+/* Renders the cards into the page */
 function setParkInfoLinks(cards) {
   const infoEl = document.querySelector(".info"); // cards container
-  infoEl.innerHTML = cards.map(mediaCardTemplate).join(""); // render 3 cards
+  infoEl.innerHTML = cards.map(mediaCardTemplate).join(""); // render all cards
 }
 
 /* -------------------- FOOTER -------------------- */
+/* Selects the mailing address object from the list */
 function getMailingAddress(addresses) {
-  return addresses.find((address) => address.type === "Mailing"); // pick mailing address
+  return addresses.find((address) => address.type === "Mailing");
 }
 
+/* Selects the voice phone number from the list */
 function getVoicePhone(numbers) {
-  const voice = numbers.find((number) => number.type === "Voice"); // pick voice phone
+  const voice = numbers.find((number) => number.type === "Voice");
   return voice ? voice.phoneNumber : "";
 }
 
+/* HTML template for footer contact info */
 function footerTemplate(info) {
-  const mailing = getMailingAddress(info.addresses); // mailing address object
-  const voice = getVoicePhone(info.contacts.phoneNumbers); // phone number string
+  const mailing = getMailingAddress(info.addresses);
+  const voice = getVoicePhone(info.contacts.phoneNumbers);
 
   return `
     <section class="contact">
@@ -116,7 +125,44 @@ function footerTemplate(info) {
   `;
 }
 
+/* Renders footer into the page */
 function setFooter(data) {
-  const footerEl = document.querySelector("#park-footer"); // footer container
-  footerEl.innerHTML = footerTemplate(data); // render footer HTML
+  const footerEl = document.querySelector("#park-footer");
+  footerEl.innerHTML = footerTemplate(data);
 }
+
+/* ========================================================= */
+/* WEEK 6 / NPS PART 5 - NEWLY ADDED CODE (Global Nav Toggle) */
+/* ========================================================= */
+/* Enables the Menu button to open/close the global navigation */
+function enableNavigation() {
+  const menuButton = document.querySelector("#global-nav-toggle"); // the Menu/Close button
+  const globalNav = document.querySelector(".global-nav"); // the nav panel that slides open
+
+  // If either element is missing, stop (prevents errors)
+  if (!menuButton || !globalNav) return;
+
+  menuButton.addEventListener("click", (ev) => {
+    let target = ev.target;
+
+    // If click happens on svg/span/div inside the button, climb back up to the button
+    if (target.tagName !== "BUTTON") {
+      target = target.closest("button");
+    }
+
+    // Toggle the menu open/closed class (CSS handles animation)
+    globalNav.classList.toggle("show");
+
+    // Update aria-expanded for accessibility (screen readers)
+    const isOpen = globalNav.classList.contains("show");
+    target.setAttribute("aria-expanded", isOpen);
+
+    // Update aria-label so screen readers announce correct action
+    target.setAttribute("aria-label", isOpen ? "Close Menu" : "Open Menu");
+  });
+}
+
+/* Run after the HTML is fully loaded */
+document.addEventListener("DOMContentLoaded", () => {
+  enableNavigation();
+});

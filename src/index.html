@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>[Park Name]</title>
 
-
     <!-- <link rel="stylesheet" href="css/style.css" /> -->
 
     <script type="module" src="js/main.js"></script>
@@ -61,14 +60,49 @@
             <span class="visually-hidden">Search</span>
           </a>
 
-          <button id="global-nav-toggle" type="button">
-            <svg class="icon">
-              <use xlink:href="/images/sprite.symbol.svg#menu"></use>
-            </svg>
-            <span class="visually-hidden">Open</span> Menu
+          <button
+            id="global-nav-toggle"
+            class="global-nav__toggle"
+            aria-expanded="false"
+            aria-label="Open Menu"
+          >
+            <div class="global-nav__toggle--closed">
+              <svg class="icon">
+                <use xlink:href="/images/sprite.symbol.svg#menu"></use>
+              </svg>
+              <span class="visually-hidden">Open</span> Menu
+            </div>
+
+            <div class="global-nav__toggle--open">
+              <svg class="icon">
+                <use xlink:href="/images/sprite.symbol.svg#close"></use>
+              </svg>
+              Close
+            </div>
           </button>
         </div>
       </section>
+
+      <!-- ✅ ADDED: Global navigation that the Menu button opens/closes -->
+      <nav class="global-nav" aria-label="Global navigation">
+        <h2 class="global-nav__section-heading">Explore this Park</h2>
+
+        <ul class="global-nav__list">
+          <li>
+            <div class="global-nav__split-button">
+              <a href="#">Plan Your Visit</a>
+              <button class="global-nav__split-button__toggle" type="button">
+                <span class="visually-hidden"
+                  >Toggle submenu for Plan Your Visit</span
+                >
+                <svg class="icon" role="presentation" focusable="false">
+                  <use xlink:href="/images/sprite.symbol.svg#arrow"></use>
+                </svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </nav>
 
       <section id="park-header">
         <div class="hero-banner">

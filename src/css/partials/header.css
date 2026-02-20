@@ -1,9 +1,12 @@
+/* ============================= */
 /* Title and logo styling */
+/* ============================= */
 
 .site-title {
   display: flex;
   align-items: center;
 }
+
 .site-title > span {
   font-size: 1rem;
   margin-left: 0.3em;
@@ -19,12 +22,15 @@
   border-right: 13px solid transparent;
 }
 
+/* ============================= */
 /* Global navbar styling */
+/* ============================= */
 
 .global-header {
   background-color: var(--bs-black);
   color: white;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 200px;
   justify-content: space-between;
   fill: white;
 }
@@ -36,6 +42,7 @@
   color: white;
   text-decoration: none;
 }
+
 .global-header .icon {
   width: 20px;
   height: 20px;
@@ -44,17 +51,20 @@
 .global-header__right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
+
 .global-header__right .search-icon {
   padding: 0 1rem;
   margin-top: 6px;
 }
+
 .global-header__right button {
   background-color: transparent;
   border: none;
   color: white;
   font-size: 1rem;
-
+  cursor: pointer;
   padding: 1.2em;
   display: flex;
   align-items: center;
@@ -62,11 +72,118 @@
   border-left: 1px solid var(--bs-grey-5);
 }
 
+/* ============================= */
+/* Global nav styles */
+/* ============================= */
+
+.global-nav {
+  width: 100%;
+  grid-column: 1/3;
+  border-top: 1px solid #333;
+  background-color: black;  
+  color: white; 
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+
+.global-nav a:link,
+.global-nav a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.global-nav a:hover {
+  text-decoration: underline;
+}
+
+.global-nav button {
+  background-color: transparent;
+  border: 0;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.global-nav svg {
+  --icon-color: white;
+}
+
+/* ============================= */
+/* Control opening/closing */
+/* ============================= */
+
+.global-nav__toggle--closed {
+  display: flex;
+  align-items: center;
+}
+
+.global-nav__toggle--open {
+  display: none;
+  align-items: center;
+}
+
+.global-nav__toggle[aria-expanded="true"] > .global-nav__toggle--closed {
+  display: none;
+}
+
+.global-nav__toggle[aria-expanded="true"] > .global-nav__toggle--open {
+  display: flex;
+}
+
+.global-nav.show {
+  max-height: 1000px;
+}
+
+/* ============================= */
+/* Dropdown spacing */
+/* ============================= */
+
+.global-nav__section-heading {
+  margin: 0;
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.global-nav__list {
+  margin: 0;
+  padding: 0 1rem 1rem 2rem;
+}
+
+.global-nav__list li {
+  margin: 0;
+  padding: 0.25rem 0;
+}
+
+
+.global-nav__split-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.global-nav__split-button a {
+  padding: 0.25rem 0;
+}
+
+.global-nav__split-button__toggle {
+  display: flex;
+  align-items: center;
+}
+
+.global-nav__split-button__toggle .icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* ============================= */
 /* Hero banner */
+/* ============================= */
+
 .hero-banner {
   display: grid;
   grid-template-columns: 1fr;
 }
+
 .hero-banner > img {
   width: 100%;
   height: 350px;
@@ -96,7 +213,9 @@
   font-size: 0.8rem;
 }
 
+/* ============================= */
 /* Park nav styling */
+/* ============================= */
 
 .park-nav > ul {
   list-style: none;
@@ -107,6 +226,7 @@
   background-color: var(--bs-black);
   font-size: 0.8rem;
 }
+
 .park-nav a {
   display: flex;
   flex-direction: column;
@@ -114,9 +234,11 @@
   justify-content: center;
   padding: 0.8em 2em;
 }
+
 .park-nav a:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 .park-nav svg {
   width: 24px;
   height: 24px;

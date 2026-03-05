@@ -1,0 +1,52 @@
+/* modals.css */
+
+/* Modal overlay */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay on screen */
+    inset: 0; /* top:0, right:0, bottom:0, left:0 */
+    background: rgba(0, 0, 0, 0.5); /* Dark transparent background */
+    z-index: 1000; /* On top of everything */
+  
+    /* Center modal content */
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* When JS adds "open" class, modal becomes visible */
+  .modal.open {
+    display: flex;
+  }
+  
+  /* White content box */
+  .modal-content {
+    background: white;
+    padding: 1.5rem; /* Space inside */
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    position: relative; /* Needed for close button positioning */
+  }
+  
+  /* Close button (X) */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer; /* Shows pointer when hovering */
+    color: grey;
+
+    &:hover {
+      color: #dddd
+    }
+  }
+  
+
+  
+  /* Just basic spacing */
+  body {
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+  }

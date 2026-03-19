@@ -1,0 +1,144 @@
+/* badUx.css */
+
+/* Styles the whole page */
+body {
+    /* Clean readable font */
+    font-family: Arial, sans-serif;
+  
+    /* Light background color */
+    background-color: #f4f4f4;
+  
+    /* Dark text for good contrast */
+    color: #333;
+  
+    /* Prevents the page from getting too wide */
+    max-width: 900px;
+  
+    /* Centers the page */
+    margin: auto;
+  
+    /* Adds space around content */
+    padding: 20px;
+  
+    /* Improves paragraph readability */
+    line-height: 1.6;
+  }
+  
+  /* Styles the main heading */
+  h1 {
+    /* Centers the heading */
+    text-align: center;
+  
+    /* Large but not overwhelming */
+    font-size: 40px;
+  
+    /* Dark color for readability */
+    color: #222;
+  }
+  
+  /* Styles section headings */
+  h2 {
+    /* Adds space above section titles */
+    margin-top: 30px;
+  }
+  
+  /* Styles the image */
+  img {
+    /* Makes the image responsive */
+    max-width: 100%;
+  
+    /* Lets it fill available width without overflowing */
+    width: 100%;
+  
+    /* Keeps image proportions correct */
+    height: auto;
+  
+    /* Lets margin auto center the image */
+    display: block;
+  
+    /* Adds spacing above and below */
+    margin: 20px auto;
+  
+    /* Slight rounded corners */
+    border-radius: 8px;
+  }
+  
+  /* Styles the list */
+  ul {
+    /* Adds space on the left for bullets */
+    padding-left: 20px;
+  }
+  
+  /* Styles each list item */
+  li {
+    /* Adds space between list items */
+    margin-bottom: 8px;
+  
+    /* Makes list text slightly larger */
+    font-size: 18px;
+  }
+  
+  /* Styles the form box */
+  form {
+    /* White background helps it stand out */
+    background-color: white;
+  
+    /* Adds internal spacing */
+    padding: 20px;
+  
+    /* Rounded corners */
+    border-radius: 8px;
+  
+    /* Adds space above the form */
+    margin-top: 20px;
+  }
+  
+  /* Styles the input field */
+  input {
+    /* Adds internal spacing */
+    padding: 10px;
+  
+    /* Space above the input */
+    margin-top: 10px;
+  
+    /* Makes it fill the container */
+    width: 100%;
+  
+    /* Keeps width from overflowing because of padding */
+    box-sizing: border-box;
+  }
+  
+  /* Styles all buttons */
+  button {
+    /* Adds space above button */
+    margin-top: 10px;
+  
+    /* Internal spacing */
+    padding: 10px 20px;
+  
+    /* Blue background */
+    background-color: #0077cc;
+  
+    /* White text */
+    color: white;
+  
+    /* Removes border */
+    border: none;
+  
+    /* Rounded corners */
+    border-radius: 4px;
+  
+    /* Pointer on hover */
+    cursor: pointer;
+  }
+  
+  /* Changes button color on hover */
+  button:hover {
+    /* Darker blue */
+    background-color: #005fa3;
+  }
+  
+  /* Adds spacing above pagination buttons */
+  .pagination {
+    margin-top: 10px;
+  }
